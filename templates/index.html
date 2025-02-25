@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Area Busyness Monitor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #count {
+            font-size: 48px;
+            color: #333;
+        }
+        #status {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Area Busyness Monitor</h1>
+    <div id="count">0</div>
+    <div id="status">Loading...</div>
+
+    <script>
+        const countDisplay = document.getElementById('count');
+        const statusDisplay = document.getElementById('status');
+        
+        function updateStatus(count) {
+            if (count === 0) {
+                statusDisplay.textContent = "Area is empty";
+                statusDisplay.style.color = "green";
+            } else if (count <= 3) {
+                statusDisplay.textContent = "Area is quiet";
+                statusDisplay.style.color = "blue";
+            } else if (count <= 6) {
+                statusDisplay.textContent = "Area is moderately busy";
+                statusDisplay.style.color = "orange";
+            } else {
+                statusDisplay.textContent = "Area is very busy";
+                statusDisplay.style.color = "red";
+            }
+        }
+
+        const source = new EventSource('/stream');
+        source.onmessage = function(event) {
+            const count = parseInt(event.data);
+            countDisplay.textContent = count;
+            updateStatus(count);
+        };
+        source.onerror = function() {
+            statusDisplay.textContent = "Connection lost";
+            statusDisplay.style.color = "gray";
+        };
+    </script>
+</body>
+</html>
