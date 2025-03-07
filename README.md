@@ -32,9 +32,9 @@ Ensure Python 3.12.9 is installed and added to path during installation as well 
     1. `mv wolfcorp tflite1`
     2. `cd tflite1`
 4. Create virtual environment
-    1. `sudo pip3 install virtualenv`
+    1. `sudo apt-get install python3-virtualenv`
     2. `python3 -m venv tflite1-env`
-    3. `source tflite1-env/Scripts/activate`
+    3. `source tflite1-env/bin/activate`
 5. Install required packages
     1. `bash get_pi_requirements.sh`
     2. `wget https://storage.googleapis.com/download.tensorflow.org/models/tflite/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip`
